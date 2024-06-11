@@ -4,7 +4,7 @@ import styles from './dashboard.module.scss'
 import { DeleteOutlined, InboxOutlined } from "@ant-design/icons"
 import TextArea from "antd/es/input/TextArea"
 import { Button, Table } from "antd"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 
 const readTextFromFile = (file) => {
     return new Promise((resolve, reject) => {
@@ -43,25 +43,25 @@ const Dashboard = () => {
             title: 'Omschrijving',
             dataIndex: 'omschrijving',
             key: 'omschrijving',
-            align:'center',
+            align: 'center',
         },
         {
             title: 'Eenheid',
             dataIndex: 'eenheid',
             key: 'eenheid',
-            align:'center',
+            align: 'center',
         },
         {
             title: 'Afname per',
             dataIndex: 'afnamePer',
             key: 'afnamePer',
-            align:'center',
+            align: 'center',
         },
         {
             title: 'SKU',
             dataIndex: 'sku',
             key: 'sku',
-            align:'center',
+            align: 'center',
         },
     ];
 
@@ -74,6 +74,7 @@ const Dashboard = () => {
         onChange(info) {
             const file = info.fileList?.[0]
             if (file) {
+                setInputString('')
                 setUploadedFile(file.originFileObj)
             }
         },
@@ -131,6 +132,11 @@ const Dashboard = () => {
         setResultData(tmpTableData)
     }
 
+    const handleChangeInput = (e) => {
+        setUploadedFile(null)
+        setInputString(e.target.value)
+    }
+
     // useEffect(() => {
     //     // parseXmlToJson()
     // }, [])
@@ -163,7 +169,7 @@ const Dashboard = () => {
                         <TextArea
                             placeholder="Enter barcodes here..."
                             value={inputString}
-                            onChange={(e) => setInputString(e.target.value)}
+                            onChange={handleChangeInput}
                         />
                     </div>
                 </div>
