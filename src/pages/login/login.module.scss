@@ -1,0 +1,87 @@
+.loginContainer {
+    width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .imgContainer {
+        margin: 0;
+        padding: 0;
+        flex-basis: 50%;
+        height: 100vh;
+        background-image: url('../../assets/images/login-background.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    .formContainer {
+        flex-basis: 50%;
+        padding-inline: 100px;
+
+        .logoContainer {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 50px;
+
+            img {
+                width: 100px;
+            }
+        }
+
+        .title {
+            text-align: center;
+            margin-bottom: 50px;
+
+            h1 {
+                font-size: 24px;
+                margin: 2px 0px;
+                font-weight: 500;
+            }
+
+            p {
+                color: #7D8398;
+                margin: 0px;
+            }
+        }
+
+        .loginBox {
+            .formItem {
+                font-weight: 500;
+                margin-bottom: 16px;
+
+                .error {
+                    font-weight: 400;
+                    font-size: small;
+                    color: #E72B37;
+                }
+            }
+        }
+
+        .loginBtn {
+            width: 100%;
+            height: 35px;
+
+            &:disabled {
+                color: #000000;
+                background-color: #E72B37;
+            }
+
+            .spin {
+                font-size: 18px;
+                color: white;
+            }
+        }
+
+        .link {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+
+            a {
+                text-decoration: none;
+                color: #E72B37;
+            }
+        }
+    }
+}

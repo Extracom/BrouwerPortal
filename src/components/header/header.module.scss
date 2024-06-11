@@ -1,0 +1,42 @@
+.headerContainer {
+    height: 70px;
+    padding: 10px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    // box-shadow: 0px 2px 5px 0px #8A9FA8;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 2px 10px 0px;
+
+    .logo {
+        display: flex;
+        align-items: center;
+
+        img {
+            width: 80px;
+        }
+    }
+
+    .navigation {
+        .profileMenu {
+            height: auto;
+            border: none;
+
+            li {
+                &::after {
+                    content: "";
+                    display: none;
+                }
+            }
+
+            .profileInfo{
+                display: flex;
+                gap: 5px;
+                align-items: center;
+
+                span{
+                    color: #7D8398;
+                }
+            }
+        }
+    }
+}

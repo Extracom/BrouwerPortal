@@ -1,0 +1,37 @@
+.dashboardContainer {
+    min-height: 500px;
+    padding: 50px 80px 50px 80px;
+
+    .inputContainer {
+        display: flex;
+
+        .uploader,
+        .textArea {
+            width: 100%;
+        }
+
+        .textArea {
+            textarea {
+                padding: 8px 15px;
+            }
+        }
+
+        .middleZone {
+            min-width: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            span {
+                font-weight: 500;
+            }
+        }
+    }
+
+    .controls {
+        margin-top: 20px;
+        button {
+            padding-inline: 35px;
+        }
+    }
+}

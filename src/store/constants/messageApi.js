@@ -1,0 +1,1 @@
+export const ADD_MESSAGE_API = 'ADD_MESSAGE_API'
