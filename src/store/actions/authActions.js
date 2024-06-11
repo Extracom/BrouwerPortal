@@ -8,7 +8,7 @@ export const signInAction = (payload, successCallback, errorCallback) => {
             const response = await API({
                 method: 'POST',
                 url: `/all/V1/integration/customer/token`,
-                data: payload
+                data: payload,
             })
 
             console.log('response :>> ', response);

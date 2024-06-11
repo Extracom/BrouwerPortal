@@ -4,6 +4,7 @@
 
     .inputContainer {
         display: flex;
+        align-items: center;
 
         .uploader,
         .textArea {
@@ -11,9 +12,17 @@
         }
 
         .textArea {
+            align-self: stretch;
+
             textarea {
+                height: 100%;
                 padding: 8px 15px;
             }
+        }
+
+        .uploader {
+            align-self: stretch;
+            height: max-content;
         }
 
         .middleZone {
@@ -28,10 +37,61 @@
         }
     }
 
+    .fileContainer {
+        margin-block: 5px;
+        max-width: 300px;
+
+        .file {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            &:hover {
+                color: #e72b37;
+            }
+
+            button {
+                border: none;
+                padding: 0;
+                background-color: transparent;
+
+                &:hover {
+                    transform: scale(1.1);
+                }
+
+                svg {
+                    color: #e72b37;
+                }
+            }
+        }
+    }
+
     .controls {
         margin-top: 20px;
+
         button {
             padding-inline: 35px;
+        }
+    }
+
+    .resultContainer {
+        margin-top: 50px;
+
+        .resultHeader {
+            h3 {
+                margin-bottom: 5px;
+            }
+        }
+
+
+        .customTable {
+            :global {
+                .ant-table-thead {
+                    .ant-table-cell{
+                        font-weight: 500;
+                    }
+                }
+            }
         }
     }
 }
