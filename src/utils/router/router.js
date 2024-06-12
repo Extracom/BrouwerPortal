@@ -1,4 +1,4 @@
 export const ROUTER = {
-    login: '/login',
-    dashboard: '/',
+    login: '/',
+    dashboard: '/dashboard',
 }

@@ -41,7 +41,10 @@ const Login = () => {
         validationSchema: formSchema,
         onSubmit: (values) => {
 
-            let payload = { ...values }
+            let payload = {
+                email: values.username,
+                password: values.password
+            }
             setIsLoading(true)
 
             const successCallback = () => {

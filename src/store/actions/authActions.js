@@ -7,15 +7,13 @@ export const signInAction = (payload, successCallback, errorCallback) => {
         try {
             const response = await API({
                 method: 'POST',
-                url: `/all/V1/integration/customer/token`,
-                data: payload,
+                url: `/account/token`,
+                data: payload
             })
-
-            console.log('response :>> ', response);
 
             dispatch({
                 type: LOGIN_SUCCESS, payload: {
-                    token: null
+                    token: response.data
                 }
             })
             successCallback()

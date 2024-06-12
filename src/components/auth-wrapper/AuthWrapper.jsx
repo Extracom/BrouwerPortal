@@ -7,8 +7,7 @@ const AuthWrapper = () => {
 
     return (
         <>
-            {true ? <Outlet /> : <Navigate to={ROUTER.login} />}
-            {/* {userData.token ? <Outlet /> : <Navigate to={ROUTER.login} />} */}
+            {userData.token ? <Outlet /> : <Navigate to={ROUTER.login} />}
         </>
     )
 }
