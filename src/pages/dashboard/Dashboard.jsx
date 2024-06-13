@@ -41,7 +41,7 @@ const Dashboard = () => {
         },
         {
             title: 'Productnummer',
-            dataIndex: 'productnummer',
+            dataIndex: 'uid',
             key: 'productnummer',
             render: (data) => {
                 return (<>
@@ -97,7 +97,7 @@ const Dashboard = () => {
             render: (_, row) => {
                 return (<>
                     {
-                        isLoading ? <Skeleton active paragraph={false} /> : <>{`${(!row.productnummer && !row.unit) ? '-' : `${row.productnummer ?? ''}!${row.unit ?? ''}`}`}</>
+                        isLoading ? <Skeleton active paragraph={false} /> : <>{`${(!row.uid && !row.unit) ? '-' : `${row.uid ?? ''}!${row.unit ?? ''}`}`}</>
                     }
                 </>)
             }
