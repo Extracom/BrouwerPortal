@@ -5,6 +5,7 @@ import { DeleteOutlined, InboxOutlined } from "@ant-design/icons"
 import TextArea from "antd/es/input/TextArea"
 import { Button, Skeleton, Table } from "antd"
 import { useState } from "react"
+import { API } from "../../services/api"
 
 const readTextFromFile = (file) => {
     return new Promise((resolve, reject) => {
@@ -26,6 +27,7 @@ const Dashboard = () => {
 
     const [resultData, setResultData] = useState([])
     const [inputString, setInputString] = useState('')
+    const [isLoading, setIsLoading] = useState(false)
     const [uploadedFile, setUploadedFile] = useState(null)
 
     const columns = [
@@ -44,7 +46,7 @@ const Dashboard = () => {
             render: (data) => {
                 return (<>
                     {
-                        data ?? <Skeleton active paragraph={false} />
+                        isLoading ? <Skeleton active paragraph={false} /> : <>{data ?? '-'}</>
                     }
                 </>)
             }
@@ -57,7 +59,7 @@ const Dashboard = () => {
             render: (data) => {
                 return (<>
                     {
-                        data ?? <Skeleton active paragraph={false} />
+                        isLoading ? <Skeleton active paragraph={false} /> : <>{data ?? '-'}</>
                     }
                 </>)
             }
@@ -70,7 +72,7 @@ const Dashboard = () => {
             render: (data) => {
                 return (<>
                     {
-                        data ?? <Skeleton active paragraph={false} />
+                        isLoading ? <Skeleton active paragraph={false} /> : <>{data ?? '-'}</>
                     }
                 </>)
             }
@@ -83,7 +85,7 @@ const Dashboard = () => {
             render: (data) => {
                 return (<>
                     {
-                        data ?? <Skeleton active paragraph={false} />
+                        isLoading ? <Skeleton active paragraph={false} /> : <>{data ?? '-'}</>
                     }
                 </>)
             }
@@ -93,10 +95,10 @@ const Dashboard = () => {
             dataIndex: 'sku',
             key: 'sku',
             align: 'center',
-            render: (data) => {
+            render: (_, row) => {
                 return (<>
                     {
-                        data ?? <Skeleton active paragraph={false} />
+                        isLoading ? <Skeleton active paragraph={false} /> : <>{`${(!row.productnummer && !row.unit) ? '-' : `${row.productnummer ?? ''}!${row.unit ?? ''}`}`}</>
                     }
                 </>)
             }
@@ -133,7 +135,9 @@ const Dashboard = () => {
         result = result.split('\n')
         const tmpTableData = []
         result.forEach((ean) => {
-
+            while (ean.length < 14) {
+                ean = '0' + ean
+            }
             if (ean) {
                 tmpTableData.push({
                     ean: ean,
@@ -150,28 +154,38 @@ const Dashboard = () => {
     }
 
     const handleLoadEANData = async (tableData) => {
-        console.log('tableData', tableData)
+        setIsLoading(true)
+        let tmpEanDetails = tableData.map((eanData) => {
 
+            return API({
+                method: 'POST',
+                url: `/product/simplelist`,
+                data: {
+                    skipPaging: true,
+                    showInactive: true,
+                    ean: eanData.ean
+                },
+            })
+        })
 
-        // const response = await API({
-        //     method: 'POST',
-        //     url: `/product/simplelist`,
-        //     data: payload,
-        // })
-
-
-        // let tmpEanDetails = tableData.map((eanData) => {
-        //     console.log('eanData', eanData)
-
-        // })
-
-        // Promise.allSettled(tmpEanDetails).then((result) => {
-        //     console.log('result', result)
-
-
-        // }).catch((error) => {
-        //     console.log('error', error)
-        // })
+        Promise.allSettled(tmpEanDetails).then((results) => {
+            const addedTableData = tableData.map((item) => {
+                let result = results.find((res) => {
+                    const resData = res?.value?.data?.data?.[0] ?? {}
+                    return resData.ean === item.ean
+                })
+                return ({
+                    ...result?.value?.data?.data?.[0] ?? {},
+                    ...item,
+                })
+            })
+            console.log('addedTableData', addedTableData)
+            setResultData(addedTableData)
+            setIsLoading(false)
+        }).catch((error) => {
+            setIsLoading(false)
+            console.log('error', error)
+        })
     }
 
     const handleChangeInput = (e) => {
@@ -179,7 +193,6 @@ const Dashboard = () => {
         setInputString(e.target.value)
     }
 
-    console.log('uploadedFile', uploadedFile)
 
     return (
         <>

@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux"
 import { logoutAction } from "../store/actions/authActions"
+import { ROUTER } from "../utils/router/router"
 
 export const useLogoutUser = () => {
     const navigate = useNavigate()
@@ -8,7 +9,7 @@ export const useLogoutUser = () => {
 
     const logoutUser = () => {
         dispatch(logoutAction())
-        navigate('/login')
+        navigate(ROUTER.login)
     }
     return logoutUser
 }

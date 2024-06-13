@@ -18,7 +18,7 @@ const Header = () => {
         return (
             [{
                 label: <div className={styles.profileInfo}>
-                    <span>{`${userInfo.firstName ?? ''} ${userInfo.lastName ?? ''}`}</span>
+                    <span>{`${userInfo?.firstName ?? ''} ${userInfo?.lastName ?? ''}`}</span>
                     <AvatarIcon />
                 </div>,
                 key: 'main',
