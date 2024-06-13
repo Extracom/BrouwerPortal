@@ -53,9 +53,8 @@ const Dashboard = () => {
         },
         {
             title: 'Omschrijving',
-            dataIndex: 'omschrijving',
+            dataIndex: 'description',
             key: 'omschrijving',
-            align: 'center',
             render: (data) => {
                 return (<>
                     {
@@ -66,7 +65,7 @@ const Dashboard = () => {
         },
         {
             title: 'Eenheid',
-            dataIndex: 'eenheid',
+            dataIndex: 'unit',
             key: 'eenheid',
             align: 'center',
             render: (data) => {
