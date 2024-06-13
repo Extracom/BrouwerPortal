@@ -1,8 +1,9 @@
-import { LOGIN_FAIL, LOGIN_REQUEST, LOGIN_SUCCESS, LOGOUT_USER } from "../constants/auth"
+import { GET_ACCOUNT_INFO_FAIL, GET_ACCOUNT_INFO_REQUEST, GET_ACCOUNT_INFO_SUCCESS, LOGIN_FAIL, LOGIN_REQUEST, LOGIN_SUCCESS, LOGOUT_USER } from "../constants/auth"
 
 
 const initialState = {
     token: null,
+    userInfo: null
 }
 
 const authReducer = (state = initialState, action) => {
@@ -30,6 +31,21 @@ const authReducer = (state = initialState, action) => {
         case LOGOUT_USER:
             {
                 return initialState
+            }
+
+        // Account info
+        case GET_ACCOUNT_INFO_REQUEST:
+            return {
+                ...state,
+            }
+        case GET_ACCOUNT_INFO_SUCCESS:
+            return {
+                ...state,
+                userInfo: { ...payload.userInfo },
+            }
+        case GET_ACCOUNT_INFO_FAIL:
+            return {
+                ...state,
             }
 
 

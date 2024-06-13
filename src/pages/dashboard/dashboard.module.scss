@@ -87,8 +87,16 @@
         .customTable {
             :global {
                 .ant-table-thead {
-                    .ant-table-cell{
+                    .ant-table-cell {
                         font-weight: 500;
+                    }
+                }
+
+                .ant-table-tbody {
+                    .ant-table-cell {
+                        .ant-skeleton-title {
+                            margin-block: 0px;
+                        }
                     }
                 }
             }

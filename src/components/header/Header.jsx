@@ -4,28 +4,38 @@ import { LogoutOutlined, UserOutlined } from '@ant-design/icons'
 import { Menu } from 'antd'
 import { useLogoutUser } from '../../hooks/auth'
 import { AvatarIcon } from '../../assets/SVGs/Global'
+import { useSelector } from 'react-redux'
+import { useMemo } from 'react'
 
-const profileMenuItems = [{
-    label: <div className={styles.profileInfo}>
-        <span>John doe</span>
-        <AvatarIcon />
-    </div>,
-    key: 'main',
-    children: [{
-        label: 'Profile',
-        key: 'profile',
-        icon: <UserOutlined />,
-    },
-    {
-        label: 'Logout',
-        key: 'logout',
-        icon: <LogoutOutlined />,
-    }]
-}]
 
 const Header = () => {
 
     const logout = useLogoutUser()
+    const { userInfo } = useSelector((state) => state.auth)
+
+
+    const profileMenuItems = useMemo(() => {
+        return (
+            [{
+                label: <div className={styles.profileInfo}>
+                    <span>{`${userInfo.firstName ?? ''} ${userInfo.lastName ?? ''}`}</span>
+                    <AvatarIcon />
+                </div>,
+                key: 'main',
+                children: [{
+                    label: 'Profile',
+                    key: 'profile',
+                    icon: <UserOutlined />,
+                },
+                {
+                    label: 'Logout',
+                    key: 'logout',
+                    icon: <LogoutOutlined />,
+                }]
+            }]
+        )
+    }, [userInfo])
+
 
     const handleProfileMenuChange = ({ key }) => {
         switch (key) {
@@ -34,6 +44,7 @@ const Header = () => {
                 break;
         }
     }
+
 
     return (
         <div className={styles.headerContainer}>

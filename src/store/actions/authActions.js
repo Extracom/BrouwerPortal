@@ -1,5 +1,5 @@
 import { API } from "../../services/api";
-import { LOGIN_FAIL, LOGIN_REQUEST, LOGIN_SUCCESS, LOGOUT_USER } from "../constants/auth";
+import { GET_ACCOUNT_INFO_FAIL, GET_ACCOUNT_INFO_REQUEST, GET_ACCOUNT_INFO_SUCCESS, LOGIN_FAIL, LOGIN_REQUEST, LOGIN_SUCCESS, LOGOUT_USER } from "../constants/auth";
 
 export const signInAction = (payload, successCallback, errorCallback) => {
     return async (dispatch) => {
@@ -27,5 +27,29 @@ export const signInAction = (payload, successCallback, errorCallback) => {
 export const logoutAction = () => {
     return {
         type: LOGOUT_USER
+    }
+}
+
+
+export const getAccountInfoAction = (payload, successCallback = () => { }, errorCallback = () => { }) => {
+    return async (dispatch) => {
+        dispatch({ type: GET_ACCOUNT_INFO_REQUEST });
+        try {
+            const response = await API({
+                method: 'POST',
+                url: `/account/info`,
+                data: payload
+            })
+
+            dispatch({
+                type: GET_ACCOUNT_INFO_SUCCESS, payload: {
+                    userInfo: response.data
+                }
+            })
+            successCallback()
+        } catch (error) {
+            dispatch({ type: GET_ACCOUNT_INFO_FAIL })
+            errorCallback(error)
+        }
     }
 }

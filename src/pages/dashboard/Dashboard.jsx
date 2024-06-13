@@ -3,7 +3,7 @@ import Header from "../../components/header/Header"
 import styles from './dashboard.module.scss'
 import { DeleteOutlined, InboxOutlined } from "@ant-design/icons"
 import TextArea from "antd/es/input/TextArea"
-import { Button, Table } from "antd"
+import { Button, Skeleton, Table } from "antd"
 import { useState } from "react"
 
 const readTextFromFile = (file) => {
@@ -33,37 +33,75 @@ const Dashboard = () => {
             title: 'EAN',
             dataIndex: 'ean',
             key: 'ean',
+            render: (data) => {
+                return (<div>{data}</div>)
+            }
         },
         {
             title: 'Productnummer',
             dataIndex: 'productnummer',
             key: 'productnummer',
+            render: (data) => {
+                return (<>
+                    {
+                        data ?? <Skeleton active paragraph={false} />
+                    }
+                </>)
+            }
         },
         {
             title: 'Omschrijving',
             dataIndex: 'omschrijving',
             key: 'omschrijving',
             align: 'center',
+            render: (data) => {
+                return (<>
+                    {
+                        data ?? <Skeleton active paragraph={false} />
+                    }
+                </>)
+            }
         },
         {
             title: 'Eenheid',
             dataIndex: 'eenheid',
             key: 'eenheid',
             align: 'center',
+            render: (data) => {
+                return (<>
+                    {
+                        data ?? <Skeleton active paragraph={false} />
+                    }
+                </>)
+            }
         },
         {
             title: 'Afname per',
             dataIndex: 'afnamePer',
             key: 'afnamePer',
             align: 'center',
+            render: (data) => {
+                return (<>
+                    {
+                        data ?? <Skeleton active paragraph={false} />
+                    }
+                </>)
+            }
         },
         {
             title: 'SKU',
             dataIndex: 'sku',
             key: 'sku',
             align: 'center',
+            render: (data) => {
+                return (<>
+                    {
+                        data ?? <Skeleton active paragraph={false} />
+                    }
+                </>)
+            }
         },
-    ];
+    ]
 
 
     const uploadProps = {
@@ -81,30 +119,7 @@ const Dashboard = () => {
         onDrop(e) {
             console.log('Dropped files', e.dataTransfer.files);
         },
-    };
-
-    // const parseXmlToJson = () => {
-    //     fetch('/products/ExportPIM.xml')
-    //         .then((response) => response.text())
-    //         .then((xml) => {
-    //             console.log('xml :>> ', xml);
-
-    //             // const parser = new xml2js.Parser({ explicitArray: false });
-    //             // parser.parseString(xml, (err, result) => {
-    //             //     if (err) {
-    //             //         console.error(err);
-    //             //         // setJsonOutput('Error parsing XML');
-    //             //     } else {
-    //             //         console.log('result :>> ', result);
-    //             //         // setJsonOutput(JSON.stringify(result, null, 2));
-    //             //     }
-    //             // });
-    //         })
-    //         .catch((error) => {
-    //             console.error('Error fetching XML:', error);
-    //             // setJsonOutput('Error fetching XML');
-    //         });
-    // };
+    }
 
     const handleMatch = async () => {
         let result = ''
@@ -118,28 +133,51 @@ const Dashboard = () => {
         result = result.split('\n')
         const tmpTableData = []
         result.forEach((ean) => {
+
             if (ean) {
                 tmpTableData.push({
                     ean: ean,
-                    productnummer: '-',
-                    omschrijving: '-',
-                    eenheid: '-',
-                    afnamePer: '-',
-                    sku: '-',
+                    productnummer: null,
+                    omschrijving: null,
+                    eenheid: null,
+                    afnamePer: null,
+                    sku: null,
                 })
             }
         })
         setResultData(tmpTableData)
+        handleLoadEANData(tmpTableData)
+    }
+
+    const handleLoadEANData = async (tableData) => {
+        console.log('tableData', tableData)
+
+
+        // const response = await API({
+        //     method: 'POST',
+        //     url: `/product/simplelist`,
+        //     data: payload,
+        // })
+
+
+        // let tmpEanDetails = tableData.map((eanData) => {
+        //     console.log('eanData', eanData)
+
+        // })
+
+        // Promise.allSettled(tmpEanDetails).then((result) => {
+        //     console.log('result', result)
+
+
+        // }).catch((error) => {
+        //     console.log('error', error)
+        // })
     }
 
     const handleChangeInput = (e) => {
         setUploadedFile(null)
         setInputString(e.target.value)
     }
-
-    // useEffect(() => {
-    //     // parseXmlToJson()
-    // }, [])
 
     console.log('uploadedFile', uploadedFile)
 

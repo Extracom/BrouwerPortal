@@ -20,6 +20,8 @@
         .profileMenu {
             height: auto;
             border: none;
+            min-width: 200px;
+            justify-content: end;
 
             li {
                 &::after {
@@ -28,12 +30,13 @@
                 }
             }
 
-            .profileInfo{
+            .profileInfo {
                 display: flex;
                 gap: 5px;
                 align-items: center;
+                max-width: 190px;
 
-                span{
+                span {
                     color: #7D8398;
                 }
             }
