@@ -78,7 +78,7 @@ const Dashboard = () => {
         },
         {
             title: 'Afname per',
-            dataIndex: 'afnamePer',
+            dataIndex: 'moq',
             key: 'afnamePer',
             align: 'center',
             render: (data) => {
