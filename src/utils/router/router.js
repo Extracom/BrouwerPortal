@@ -1,4 +1,5 @@
 export const ROUTER = {
     login: '/',
-    dashboard: '/dashboard',
+    product: '/product',
+    eanMatch: '/ean-match'
 }

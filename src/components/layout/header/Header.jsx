@@ -1,9 +1,9 @@
 import styles from './header.module.scss'
-import LOGO_IMG from '../../assets/images/logo.png'
-import { LogoutOutlined, UserOutlined } from '@ant-design/icons'
-import { Menu } from 'antd'
-import { useLogoutUser } from '../../hooks/auth'
-import { AvatarIcon } from '../../assets/SVGs/Global'
+import LOGO_IMG from '../../../assets/images/logo.png'
+import { LogoutOutlined, ShoppingCartOutlined, UserOutlined } from '@ant-design/icons'
+import { Badge, Menu } from 'antd'
+import { useLogoutUser } from '../../../hooks/auth'
+import { AvatarIcon } from '../../../assets/SVGs/Global'
 import { useSelector } from 'react-redux'
 import { useMemo } from 'react'
 
@@ -52,6 +52,9 @@ const Header = () => {
                 <img src={LOGO_IMG} alt=" " />
             </div>
             <div className={styles.navigation}>
+                {userInfo?.isAgent && <Badge count={1} overflowCount={9} className={styles.cartIcon} size='large'>
+                    <ShoppingCartOutlined />
+                </Badge>}
                 <Menu
                     mode='horizontal'
                     items={profileMenuItems}

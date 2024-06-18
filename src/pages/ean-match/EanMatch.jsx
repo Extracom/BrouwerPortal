@@ -1,9 +1,8 @@
 import Dragger from "antd/es/upload/Dragger"
-import Header from "../../components/header/Header"
-import styles from './dashboard.module.scss'
+import styles from './eanMatch.module.scss'
 import { DeleteOutlined, InboxOutlined } from "@ant-design/icons"
 import TextArea from "antd/es/input/TextArea"
-import { Button, Skeleton, Table } from "antd"
+import { Button, Col, Row, Skeleton, Table } from "antd"
 import { useState } from "react"
 import { API } from "../../services/api"
 
@@ -23,7 +22,7 @@ const readTextFromFile = (file) => {
     });
 }
 
-const Dashboard = () => {
+const EanMatch = () => {
 
     const [resultData, setResultData] = useState([])
     const [inputString, setInputString] = useState('')
@@ -178,7 +177,6 @@ const Dashboard = () => {
                     ...item,
                 })
             })
-            console.log('addedTableData', addedTableData)
             setResultData(addedTableData)
             setIsLoading(false)
         }).catch((error) => {
@@ -195,8 +193,13 @@ const Dashboard = () => {
 
     return (
         <>
-            <Header />
-            <div className={styles.dashboardContainer}>
+            <div className={styles.eanMatchContainer}>
+                <Row justify="space-between" align="middle">
+                    <Col span={12} lg={12}>
+                        <h3 className={styles.pageTitle}>EAN Match</h3>
+                    </Col>
+                    <br />
+                </Row>
                 <div className={styles.inputContainer}>
                     <div className={styles.uploader}>
                         <Dragger
@@ -257,4 +260,4 @@ const Dashboard = () => {
     )
 }
 
-export default Dashboard
+export default EanMatch

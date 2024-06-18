@@ -1,6 +1,12 @@
-.dashboardContainer {
+.eanMatchContainer {
     min-height: 500px;
-    padding: 50px 80px 50px 80px;
+    padding: 10px 25px 35px 25px;
+    width: 100%;
+
+    .pageTitle{
+        font-weight: 600;
+        color: #e72b37;
+    }
 
     .inputContainer {
         display: flex;

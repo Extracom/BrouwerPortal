@@ -1,13 +1,14 @@
 import { useDispatch } from 'react-redux'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Login from './pages/login/Login'
-import Dashboard from './pages/dashboard/Dashboard'
 import './App.css'
 import { useEffect } from 'react'
 import { message } from 'antd'
 import { ADD_MESSAGE_API } from './store/constants/messageApi'
 import { ROUTER } from './utils/router/router'
 import AuthWrapper from './components/auth-wrapper/AuthWrapper'
+import EanMatch from './pages/ean-match/EanMatch'
+import Product from './pages/product/Product'
 
 
 function App() {
@@ -27,7 +28,8 @@ function App() {
           <Route path={ROUTER.login} element={<Login />} />
 
           <Route element={<AuthWrapper />} >
-            <Route path={ROUTER.dashboard} element={<Dashboard />} />
+            <Route path={ROUTER.product} element={<Product />} />
+            <Route path={ROUTER.eanMatch} element={<EanMatch />} />
           </Route>
 
           <Route path="*" element={<div>Not found</div>} />
