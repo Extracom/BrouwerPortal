@@ -60,7 +60,7 @@ const Header = () => {
                     count={1}
                     overflowCount={9}
                     className={`${styles.cartIcon} ${pathname === ROUTER.cart ? styles.active : ''}`}
-                    size='large'
+                    size='small'
                     onClick={() => navigate(ROUTER.cart)}
                 >
                     <ShoppingCartOutlined />
