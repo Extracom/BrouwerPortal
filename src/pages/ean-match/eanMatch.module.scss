@@ -1,9 +1,13 @@
 .eanMatchContainer {
     min-height: 500px;
-    padding: 10px 25px 35px 25px;
+    padding: 20px;
     width: 100%;
+    background-color: #fff;
+    border-radius: 15px;
+    box-sizing: border-box;
+    box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.0392156863);
 
-    .pageTitle{
+    .pageTitle {
         font-weight: 600;
         color: #e72b37;
     }
