@@ -26,6 +26,9 @@ const OrderOverview = () => {
         {
             title: 'Omschrijving',
             dataIndex: 'description',
+            width: '500px',
+            // textWrap: 'word-break',
+            // ellipsis: true,
             key: 'description',
             render: (_, row) => (<div className={styles.descriptionLayout}>
                 <div className={styles.descriptionLayoutLeft}>
@@ -190,8 +193,9 @@ const OrderOverview = () => {
                             }}
                             expandable={{
                                 defaultExpandAllRows: true,
-                            }}
+                            }}style={{width:'100%'}}
                             rowKey={(row, index) => `${row.orderCode}_${index}`}
+                            size='small'
                         />
                     </div>
 
