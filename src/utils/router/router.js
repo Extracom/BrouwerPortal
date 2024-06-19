@@ -1,5 +1,7 @@
 export const ROUTER = {
     login: '/',
-    product: '/product',
-    eanMatch: '/ean-match'
+    eanMatch: '/ean-match',
+    customer: '/customer',
+    orderOverview: '/order-overview',
+    cart: '/cart'
 }

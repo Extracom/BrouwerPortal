@@ -1,6 +1,6 @@
 import { Menu, Layout } from 'antd';
 import styles from './sidebar.module.scss'
-import { GoldOutlined, BarcodeOutlined } from '@ant-design/icons';
+import { BarcodeOutlined, UserOutlined, UnorderedListOutlined } from '@ant-design/icons';
 import { useSelector } from 'react-redux';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -25,22 +25,27 @@ const Sidebar = () => {
         const tmpMenuItems = []
 
         tmpMenuItems.push({
-            key: 'producten',
-            label: 'Producten',
-            path: ROUTER.product,
-            icon: <GoldOutlined style={{ fontSize: '100%' }} />
+            key: 'eanMatch',
+            label: 'EAN Match',
+            path: ROUTER.eanMatch,
+            icon: <BarcodeOutlined style={{ fontSize: '100%' }} />
         })
         if (Object.keys(userData).length > 0) {
             if (userData.userInfo?.isAgent) {
-                tmpMenuItems.push(
-                    {
-                        key: 'eanMatch',
-                        label: 'EAN Match',
-                        path: ROUTER.eanMatch,
-                        icon: <BarcodeOutlined style={{ fontSize: '100%' }} />
-                    })
+                tmpMenuItems.push({
+                    key: 'klanten',
+                    label: 'Klanten',
+                    path: ROUTER.customer,
+                    icon: <UserOutlined style={{ fontSize: '100%' }} />
+                })
             }
         }
+        tmpMenuItems.push({
+            key: 'besteloverzicht',
+            label: 'Besteloverzicht',
+            path: ROUTER.orderOverview,
+            icon: <UnorderedListOutlined style={{ fontSize: '100%' }} />
+        })
         return [...tmpMenuItems]
     }, [userData])
 

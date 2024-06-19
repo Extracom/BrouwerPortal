@@ -49,7 +49,7 @@ const Login = () => {
 
             const successCallback = () => {
                 setIsLoading(false)
-                navigate(ROUTER.product)
+                navigate(ROUTER.eanMatch)
             }
 
             const errorCallback = (error) => {
@@ -71,7 +71,7 @@ const Login = () => {
 
     useEffect(() => {
         if (token) {
-            navigate(ROUTER.product)
+            navigate(ROUTER.eanMatch)
         }
     }, [token])
 

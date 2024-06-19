@@ -8,7 +8,9 @@ import { ADD_MESSAGE_API } from './store/constants/messageApi'
 import { ROUTER } from './utils/router/router'
 import AuthWrapper from './components/auth-wrapper/AuthWrapper'
 import EanMatch from './pages/ean-match/EanMatch'
-import Product from './pages/product/Product'
+import Customer from './pages/customer/Customer'
+import OrderOverview from './pages/order-overview/OrderOverview'
+import Cart from './pages/cart/Cart'
 
 
 function App() {
@@ -28,8 +30,11 @@ function App() {
           <Route path={ROUTER.login} element={<Login />} />
 
           <Route element={<AuthWrapper />} >
-            <Route path={ROUTER.product} element={<Product />} />
             <Route path={ROUTER.eanMatch} element={<EanMatch />} />
+            <Route path={ROUTER.customer} element={<Customer />} />
+            <Route path={ROUTER.orderOverview} element={<OrderOverview />} />
+
+            <Route path={ROUTER.cart} element={<Cart />} />
           </Route>
 
           <Route path="*" element={<div>Not found</div>} />

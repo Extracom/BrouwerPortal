@@ -6,11 +6,15 @@ import { useLogoutUser } from '../../../hooks/auth'
 import { AvatarIcon } from '../../../assets/SVGs/Global'
 import { useSelector } from 'react-redux'
 import { useMemo } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { ROUTER } from '../../../utils/router/router'
 
 
 const Header = () => {
 
+    const navigate = useNavigate()
     const logout = useLogoutUser()
+    const { pathname } = useLocation()
     const { userInfo } = useSelector((state) => state.auth)
 
 
@@ -52,7 +56,13 @@ const Header = () => {
                 <img src={LOGO_IMG} alt=" " />
             </div>
             <div className={styles.navigation}>
-                {userInfo?.isAgent && <Badge count={1} overflowCount={9} className={styles.cartIcon} size='large'>
+                {userInfo?.isAgent && <Badge
+                    count={1}
+                    overflowCount={9}
+                    className={`${styles.cartIcon} ${pathname === ROUTER.cart ? styles.active : ''}`}
+                    size='large'
+                    onClick={() => navigate(ROUTER.cart)}
+                >
                     <ShoppingCartOutlined />
                 </Badge>}
                 <Menu
@@ -61,9 +71,10 @@ const Header = () => {
                     className={styles.profileMenu}
                     onClick={handleProfileMenuChange}
                     rootClassName={styles.profileMenuPopover}
+                    disabledOverflow={true}
                 />
             </div>
-        </div>
+        </div >
     )
 }
 

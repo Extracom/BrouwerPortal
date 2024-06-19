@@ -22,7 +22,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 20px;
+        gap: 10px;
 
         .cartIcon {
             cursor: pointer;
@@ -32,6 +32,13 @@
 
             sup {
                 font-size: 11px;
+            }
+
+            &.active {
+                background-color: #fef0ef;
+                padding: 5px;
+                border-radius: 8px;
+                font-size: 22px;
             }
         }
 
