@@ -143,12 +143,12 @@ const OrderOverview = () => {
             <div id='contentMain' className={styles.customerContainer}>
                 <div className={styles.content}>
 
-                    <div>
+                    <div className={styles.pageHeader}>
                         <Row justify="space-between" align="middle">
                             <Col lg={8}>
                                 <h2 className={styles.pageTitle}>Besteloverzicht</h2>
                             </Col>
-                            <Col lg={9} xs={24}>
+                            <Col lg={9}>
                                 <div className={styles.actionsContainer}>
                                     <div className={styles.datePickerSection}>
                                         <p>Bestellingen vanaf:</p>
