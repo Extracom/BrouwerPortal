@@ -26,9 +26,6 @@ const OrderOverview = () => {
         {
             title: 'Omschrijving',
             dataIndex: 'description',
-            width: '500px',
-            // textWrap: 'word-break',
-            // ellipsis: true,
             key: 'description',
             render: (_, row) => (<div className={styles.descriptionLayout}>
                 <div className={styles.descriptionLayoutLeft}>
@@ -73,17 +70,22 @@ const OrderOverview = () => {
             title: 'Te leveren',
             dataIndex: 'qtyToDeliver',
             key: 'qtyToDeliver',
-            render: (_, row) => (<div className={styles.qtyToDeliverLayout}>
-                <div>{(!row.qtyToDeliver || row.qtyToDeliver === '') ? '-' : row.qtyToDeliver}</div>
-                <div className={styles.unitCode}>{(!row.unitCode || row.unitCode === '') ? '-' : row.unitCode}</div>
-            </div>)
+            render: (_, row) => (
+                <div className={styles.qtyToDeliverLayout}>
+                    <div>{(!row.qtyToDeliver || row.qtyToDeliver === '') ? '-' : row.qtyToDeliver}</div>
+                    <div className={styles.unitCode}>{(!row.unitCode || row.unitCode === '') ? '-' : row.unitCode}</div>
+                </div>)
         },
         {
             title: 'Status',
             dataIndex: 'lineStatusDescription',
             key: 'lineStatusDescription',
             responsive: ['sm'],
-            render: (_, row) => (<>{(!row.lineStatusDescription || row.lineStatusDescription === '') ? '-' : row.lineStatusDescription}</>)
+            render: (_, row) => (
+                <div className={styles.status}>
+                    {(!row.lineStatusDescription || row.lineStatusDescription === '') ? '-' : row.lineStatusDescription}
+                </div>
+            )
         }
     ]
 
@@ -175,7 +177,7 @@ const OrderOverview = () => {
                         </Row>
                     </div>
 
-                    <div>
+                    <div className={styles.pageContent}>
                         <Table
                             key={dataSource.length}
                             className={styles.customTable}
@@ -193,7 +195,7 @@ const OrderOverview = () => {
                             }}
                             expandable={{
                                 defaultExpandAllRows: true,
-                            }}style={{width:'100%'}}
+                            }}
                             rowKey={(row, index) => `${row.orderCode}_${index}`}
                             size='small'
                         />
