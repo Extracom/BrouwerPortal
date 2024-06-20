@@ -42,7 +42,11 @@ const OrderOverview = () => {
             dataIndex: 'productCode',
             key: 'productCode',
             responsive: ['sm'],
-            render: (_, row) => (<>{(!row.productCode || row.productCode === '') ? '-' : row.productCode}</>)
+            render: (_, row) => (
+                <div className={styles.pcode}>
+                    {(!row.productCode || row.productCode === '') ? '-' : row.productCode}
+                </div>
+            )
         },
         {
             title: 'Eenheid',
