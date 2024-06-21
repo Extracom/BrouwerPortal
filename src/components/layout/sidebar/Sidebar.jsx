@@ -1,6 +1,6 @@
 import { Menu, Layout } from 'antd';
 import styles from './sidebar.module.scss'
-import { BarcodeOutlined, UserOutlined, UnorderedListOutlined } from '@ant-design/icons';
+import { BarcodeOutlined, UserOutlined, UnorderedListOutlined, DownloadOutlined, FileTextOutlined, } from '@ant-design/icons';
 import { useSelector } from 'react-redux';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -24,12 +24,6 @@ const Sidebar = () => {
     const menuItems = useMemo(() => {
         const tmpMenuItems = []
 
-        tmpMenuItems.push({
-            key: 'eanMatch',
-            label: 'EAN Match',
-            path: ROUTER.eanMatch,
-            icon: <BarcodeOutlined style={{ fontSize: '100%' }} />
-        })
         if (Object.keys(userData).length > 0) {
             if (userData.userInfo?.isAgent) {
                 tmpMenuItems.push({
@@ -41,11 +35,31 @@ const Sidebar = () => {
             }
         }
         tmpMenuItems.push({
+            key: 'eanMatch',
+            label: 'EAN Match',
+            path: ROUTER.eanMatch,
+            icon: <BarcodeOutlined style={{ fontSize: '100%' }} />
+        })
+        tmpMenuItems.push({
             key: 'besteloverzicht',
             label: 'Besteloverzicht',
             path: ROUTER.orderOverview,
             icon: <UnorderedListOutlined style={{ fontSize: '100%' }} />
         })
+        // ? temporary pushing static items, will be used in future
+        tmpMenuItems.push({
+            key: 'mijnFacturen',
+            label: 'Mijn Facturen',
+            path: ROUTER.myInvoices,
+            icon: <FileTextOutlined  style={{ fontSize: '100%' }} />
+        })
+        tmpMenuItems.push({
+            key: 'downloads',
+            label: 'Downloads',
+            path: ROUTER.downloads,
+            icon: <DownloadOutlined style={{ fontSize: '100%' }} />
+        })
+
         return [...tmpMenuItems]
     }, [userData])
 

@@ -5,6 +5,10 @@ import TextArea from "antd/es/input/TextArea"
 import { Button, Col, Row, Skeleton, Table } from "antd"
 import { useState } from "react"
 import { API } from "../../services/api"
+import { useDispatch, useSelector } from "react-redux"
+import { addToCartAction } from "../../store/actions/cartAction"
+import { ROUTER } from "../../utils/router/router"
+import { useNavigate } from "react-router-dom"
 
 const readTextFromFile = (file) => {
     return new Promise((resolve, reject) => {
@@ -28,6 +32,11 @@ const EanMatch = () => {
     const [inputString, setInputString] = useState('')
     const [isLoading, setIsLoading] = useState(false)
     const [uploadedFile, setUploadedFile] = useState(null)
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const userData = useSelector((state) => state.auth)
 
     const columns = [
         {
@@ -121,8 +130,15 @@ const EanMatch = () => {
         },
     }
 
+    const handleAddtoCart = (products) => {
+        if (userData.userInfo.isAgent) {
+            dispatch(addToCartAction({ payload: products }))
+            navigate(`${ROUTER.cart}`)
+        }
+    }
+
     const handleMatch = async () => {
-        let result = ''
+        let result;
         if (uploadedFile) {
             result = await readTextFromFile(uploadedFile)
         } else if (inputString) {
@@ -194,67 +210,97 @@ const EanMatch = () => {
     return (
         <>
             <div className={styles.eanMatchContainer}>
-                <Row justify="space-between" align="middle">
-                    <Col span={12} lg={12}>
-                        <h3 className={styles.pageTitle}>EAN Match</h3>
-                    </Col>
-                    <br />
-                </Row>
-                <div className={styles.inputContainer}>
-                    <div className={styles.uploader}>
-                        <Dragger
-                            className={styles.upload}
-                            {...uploadProps}
-                        >
-                            <p className="ant-upload-drag-icon">
-                                <InboxOutlined />
-                            </p>
-                            <p className="ant-upload-text">Click or drag file to this area to upload</p>
-                            <p className="ant-upload-hint">
-                                Supported file types: CSV, TXT
-                            </p>
-                        </Dragger>
+                <div className={styles.contentWrapper}>
+                    <div className={styles.content}>
+                        <Row justify="space-between" align="middle">
+                            <Col span={12} lg={12}>
+                                <h3 className={styles.pageTitle}>EAN Match</h3>
+                            </Col>
+                            <br />
+                        </Row>
+                        <div className={styles.inputContainer}>
+                            <div className={styles.uploader}>
+                                <Dragger
+                                    className={styles.upload}
+                                    {...uploadProps}
+                                >
+                                    <p className="ant-upload-drag-icon">
+                                        <InboxOutlined />
+                                    </p>
+                                    <p className="ant-upload-text">Click or drag file to this area to upload</p>
+                                    <p className="ant-upload-hint">
+                                        Supported file types: CSV, TXT
+                                    </p>
+                                </Dragger>
+                            </div>
+                            <div className={styles.middleZone}>
+                                <span>OR</span>
+                            </div>
+                            <div className={styles.textArea}>
+                                <TextArea
+                                    placeholder="Enter barcodes here..."
+                                    value={inputString}
+                                    onChange={handleChangeInput}
+                                />
+                            </div>
+                        </div>
+                        {uploadedFile && <div className={styles.fileContainer}>
+                            <div className={styles.file}>
+                                <Button >
+                                    <DeleteOutlined onClick={() => setUploadedFile(null)} />
+                                </Button>
+                                <div>{uploadedFile.name}</div>
+                            </div>
+                        </div>}
+                        <div className={styles.controls}>
+                            <Button
+                                type="primary"
+                                onClick={handleMatch}
+                                disabled={!(uploadedFile || inputString) || isLoading}
+                            >
+                                Match
+                            </Button>
+
+                            <div className={styles.cartControls}>
+                                
+                                {(resultData.length > 0) &&
+                                    <Button
+                                        type="primary"
+                                        disabled={isLoading}
+                                    >
+                                        Add to Webshop
+                                    </Button>
+                                }
+
+                                {((resultData.length > 0) && userData.userInfo.isAgent) &&
+                                    <Button
+                                        type="primary"
+                                        onClick={() => handleAddtoCart(resultData)}
+                                        disabled={isLoading}
+                                    >
+                                        Add to Cart
+                                    </Button>
+                                }
+                            </div>
+                        </div>
+
+                        {resultData.length > 0 && <div className={styles.resultContainer}>
+                            <div className={styles.resultHeader}>
+                                <h3 className={styles.pageTitle}>Result</h3>
+                            </div>
+                            <Table
+                                columns={columns}
+                                size="small"
+                                dataSource={resultData}
+                                pagination={false}
+                                className={styles.customTable}
+                            />
+                        </div>}
                     </div>
-                    <div className={styles.middleZone}>
-                        <span>OR</span>
-                    </div>
-                    <div className={styles.textArea}>
-                        <TextArea
-                            placeholder="Enter barcodes here..."
-                            value={inputString}
-                            onChange={handleChangeInput}
-                        />
-                    </div>
-                </div>
-                {uploadedFile && <div className={styles.fileContainer}>
-                    <div className={styles.file}>
-                        <Button >
-                            <DeleteOutlined onClick={() => setUploadedFile(null)} />
-                        </Button>
-                        <div>{uploadedFile.name}</div>
-                    </div>
-                </div>}
-                <div className={styles.controls}>
-                    <Button
-                        type="primary"
-                        onClick={handleMatch}
-                    >
-                        Match
-                    </Button>
                 </div>
 
-                {resultData.length > 0 && <div className={styles.resultContainer}>
-                    <div className={styles.resultHeader}>
-                        <h3>Result</h3>
-                    </div>
-                    <Table
-                        columns={columns}
-                        size="small"
-                        dataSource={resultData}
-                        pagination={false}
-                        className={styles.customTable}
-                    />
-                </div>}
+
+
             </div>
         </>
     )

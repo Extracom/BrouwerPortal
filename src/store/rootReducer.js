@@ -4,6 +4,7 @@ import storage from 'redux-persist/lib/storage'
 import { authReducer } from './reducers/authReducer'
 import { messageApiReducer } from './reducers/messageApiReducer'
 import { orderReducer } from './reducers/orderReducer'
+import { cartReducer } from './reducers/cartReducer'
 
 const persistConfig = {
     key: 'root',
@@ -14,6 +15,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
     auth: authReducer,
     messageApi: messageApiReducer,
+    cart: cartReducer,
     order: orderReducer,
 })
 

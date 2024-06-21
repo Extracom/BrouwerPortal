@@ -58,15 +58,57 @@
 
             .profileInfo {
                 display: flex;
-                gap: 5px;
+                gap: 10px;
                 align-items: center;
-                max-width: 190px;
+                max-width: 200px;
+                max-height: 75px;
 
-                span {
-                    color: #7D8398;
+                .profileInfoData {
+                    display: flex;
+                    align-items: end;
+                    justify-content: center;
+                    flex-direction: column;
+                    line-height: 25px;
+                    font-size: 13px;
+
+                    .userName {
+                        display: flex;
+                        justify-content: center;
+                        align-items: flex-start;
+                        max-height: 20px;
+                        color: #E72B37;
+                    }
+
+                    .userEmail {
+                        display: flex;
+                        justify-content: center;
+                        align-items: flex-end;
+                        max-height: 20px;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        color: rgba(0, 0, 0, 0.65);
+                    }
+                }
+
+                .profileInfoIcon {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    background-color: #FFF1f0;
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 20px;
+
                 }
             }
         }
+    }
+}
 
+:global {
+    .ant-menu.ant-menu-root.ant-menu-horizontal {
+        display: flex;
+        align-items: center;
     }
 }

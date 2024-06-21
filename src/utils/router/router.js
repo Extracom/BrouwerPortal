@@ -3,5 +3,7 @@ export const ROUTER = {
     eanMatch: '/ean-match',
     customer: '/customer',
     orderOverview: '/order-overview',
-    cart: '/cart'
+    cart: '/cart',
+    myInvoices : '/my-invoices',
+    downloads: '/downloads',
 }

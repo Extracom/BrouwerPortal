@@ -11,6 +11,9 @@ import EanMatch from './pages/ean-match/EanMatch'
 import Customer from './pages/customer/Customer'
 import OrderOverview from './pages/order-overview/OrderOverview'
 import Cart from './pages/cart/Cart'
+import Downloads from './pages/downloads/Downloads'
+import MyInvoices from './pages/my-invoices/MyInvoices'
+import AgentAuthWrapper from './components/auth-wrapper/AgentAuthWrapper'
 
 
 function App() {
@@ -33,8 +36,11 @@ function App() {
             <Route path={ROUTER.eanMatch} element={<EanMatch />} />
             <Route path={ROUTER.customer} element={<Customer />} />
             <Route path={ROUTER.orderOverview} element={<OrderOverview />} />
-
-            <Route path={ROUTER.cart} element={<Cart />} />
+            <Route path={ROUTER.myInvoices} element={<MyInvoices />} />
+            <Route path={ROUTER.downloads} element={<Downloads />} />
+            <Route element={<AgentAuthWrapper />}>
+              <Route path={ROUTER.cart} element={<Cart />} />
+            </Route>
           </Route>
 
           <Route path="*" element={<div>Not found</div>} />

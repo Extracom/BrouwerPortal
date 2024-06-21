@@ -1,12 +1,12 @@
-import styles from './customer.module.scss'
+import styles from './downloads.module.scss'
 
-const Customer = () => {
+const Downloads = () => {
     return (
         <>
-            <div className={styles.customerContainer}>
+            <div className={styles.downloadContainer}>
                 <div className={styles.contentWrapper}>
                     <div className={styles.content}>
-                        Customer
+                        Downloads
                     </div>
                 </div>
             </div>
@@ -14,4 +14,4 @@ const Customer = () => {
     )
 }
 
-export default Customer
+export default Downloads

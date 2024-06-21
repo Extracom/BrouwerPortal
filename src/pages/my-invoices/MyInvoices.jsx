@@ -1,12 +1,12 @@
-import styles from './customer.module.scss'
+import styles from './myInvoices.module.scss'
 
-const Customer = () => {
+const MyInvoices = () => {
     return (
         <>
-            <div className={styles.customerContainer}>
+            <div className={styles.invoicesContainer}>
                 <div className={styles.contentWrapper}>
                     <div className={styles.content}>
-                        Customer
+                        myInvoices
                     </div>
                 </div>
             </div>
@@ -14,4 +14,4 @@ const Customer = () => {
     )
 }
 
-export default Customer
+export default MyInvoices

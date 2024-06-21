@@ -16,27 +16,36 @@ const Header = () => {
     const logout = useLogoutUser()
     const { pathname } = useLocation()
     const { userInfo } = useSelector((state) => state.auth)
+    const { cartQuantity } = useSelector((state) => state.cart)
 
 
     const profileMenuItems = useMemo(() => {
-        return (
-            [{
-                label: <div className={styles.profileInfo}>
-                    <span>{`${userInfo?.firstName ?? ''} ${userInfo?.lastName ?? ''}`}</span>
+        return ([{
+            label: <div className={styles.profileInfo}>
+                <div className={styles.profileInfoData}>
+                    <div className={styles.userName}>
+                        <span>{`${userInfo?.firstName ?? ''} ${userInfo?.lastName ?? ''}`}</span>
+                    </div>
+                    <div className={styles.userEmail}>
+                        <span>{`${userInfo?.email ?? ''}`}</span>
+                    </div>
+                </div>
+                <div className={styles.profileInfoIcon}>
                     <AvatarIcon />
-                </div>,
-                key: 'main',
-                children: [{
-                    label: 'Profile',
-                    key: 'profile',
-                    icon: <UserOutlined />,
-                },
-                {
-                    label: 'Logout',
-                    key: 'logout',
-                    icon: <LogoutOutlined />,
-                }]
+                </div>
+            </div>,
+            key: 'main',
+            children: [{
+                label: 'Profile',
+                key: 'profile',
+                icon: <UserOutlined />,
+            },
+            {
+                label: 'Logout',
+                key: 'logout',
+                icon: <LogoutOutlined />,
             }]
+        }]
         )
     }, [userInfo])
 
@@ -57,8 +66,8 @@ const Header = () => {
             </div>
             <div className={styles.navigation}>
                 {userInfo?.isAgent && <Badge
-                    count={1}
-                    overflowCount={9}
+                    count={cartQuantity}
+                    overflowCount={99}
                     className={`${styles.cartIcon} ${pathname === ROUTER.cart ? styles.active : ''}`}
                     size='small'
                     onClick={() => navigate(ROUTER.cart)}
