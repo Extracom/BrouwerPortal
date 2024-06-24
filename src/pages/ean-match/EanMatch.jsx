@@ -130,6 +130,7 @@ const EanMatch = () => {
         },
     }
 
+
     const handleAddtoCart = (products) => {
         if (userData.userInfo.isAgent) {
             dispatch(addToCartAction({ payload: products }))
@@ -147,13 +148,39 @@ const EanMatch = () => {
 
         result = result.replace(/\r\n/g, '\n')
         result = result.split('\n')
+        result = result.map((eanData) => {
+            const [ean, quantity] = eanData.split(',')
+            return {
+                ean,
+                quantity: Number(quantity ?? 1)
+            }
+        }).filter(({ ean }) => ean !== '')
+
+        let parsedResult = []
+        result.forEach((eanData) => {
+            const index = parsedResult.findIndex((item) => item.ean === eanData.ean)
+
+            if (index < 0) {
+                parsedResult.push({ ...eanData })
+                return
+            }
+
+            parsedResult[index] = {
+                ...parsedResult[index],
+                quantity: Number(parsedResult[index].quantity) + Number(eanData.quantity)
+            }
+        })
+
+
         const tmpTableData = []
-        result.forEach((ean) => {
+        parsedResult.forEach((eanData) => {
+            let { ean } = eanData
             while (ean.length < 14) {
                 ean = '0' + ean
             }
             if (ean) {
                 tmpTableData.push({
+                    ...eanData,
                     ean: ean,
                     productnummer: null,
                     omschrijving: null,
@@ -188,9 +215,15 @@ const EanMatch = () => {
                     const resData = res?.value?.data?.data?.[0] ?? {}
                     return resData.ean === item.ean
                 })
+                let data = result?.value?.data?.data?.[0] ?? {}
+                let moq = data.moq ?? 1
+                let quantity = item.quantity
+                let roundOffQuantity = (quantity % moq === 0) ? quantity : (quantity + (moq - (quantity % moq)))
+
                 return ({
-                    ...result?.value?.data?.data?.[0] ?? {},
+                    ...data,
                     ...item,
+                    quantity: roundOffQuantity
                 })
             })
             setResultData(addedTableData)
@@ -260,33 +293,32 @@ const EanMatch = () => {
                             >
                                 Match
                             </Button>
-
-                            <div className={styles.cartControls}>
-                                
-                                {(resultData.length > 0) &&
-                                    <Button
-                                        type="primary"
-                                        disabled={isLoading}
-                                    >
-                                        Add to Webshop
-                                    </Button>
-                                }
-
-                                {((resultData.length > 0) && userData.userInfo.isAgent) &&
-                                    <Button
-                                        type="primary"
-                                        onClick={() => handleAddtoCart(resultData)}
-                                        disabled={isLoading}
-                                    >
-                                        Add to Cart
-                                    </Button>
-                                }
-                            </div>
                         </div>
 
                         {resultData.length > 0 && <div className={styles.resultContainer}>
                             <div className={styles.resultHeader}>
                                 <h3 className={styles.pageTitle}>Result</h3>
+                                <div className={styles.cartControls}>
+
+                                    {(resultData.length > 0) &&
+                                        <Button
+                                            type="primary"
+                                            disabled={isLoading}
+                                        >
+                                            Add to Webshop
+                                        </Button>
+                                    }
+
+                                    {((resultData.length > 0) && userData.userInfo.isAgent) &&
+                                        <Button
+                                            type="primary"
+                                            onClick={() => handleAddtoCart(resultData)}
+                                            disabled={isLoading}
+                                        >
+                                            Add to Cart
+                                        </Button>
+                                    }
+                                </div>
                             </div>
                             <Table
                                 columns={columns}

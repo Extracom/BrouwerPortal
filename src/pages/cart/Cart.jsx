@@ -12,21 +12,21 @@ import { ROUTER } from "../../utils/router/router";
 const Cart = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate()
+
+  const [processedData, setProcessedData] = useState()
+  const [isLoading, setIsLoading] = useState(false)
+  const [selectedAddress, setSelectedAddress] = useState(null)
+  const [orderReferentie, setOrderReferentie] = useState(null)
+  const [selectedOrderTime, setSelectedOrderTime] = useState('C')
+  const [Opmerking, setOpmerking] = useState(null)
+
   const userData = useSelector((state) => state.auth)
   const { addresses, cart, cartQuantity } = useSelector((state) => state.cart)
   const { messageApi } = useSelector((state) => state.messageApi)
   const userInfo = useSelector((state) => state.auth.userInfo)
 
-  const [processedData, setProcessedData] = useState()
-
-  const [isLoading, setIsLoading] = useState(false)
-  const [selectedAddress, setSelectedAddress] = useState(null)
-
-  const [orderReferentie, setOrderReferentie] = useState(null)
-  const [selectedOrderTime, setSelectedOrderTime] = useState('C')
-  const [Opmerking, setOpmerking] = useState(null)
-
   const customizedCart = [...cart]
+
 
   const getTableData = (groupedData) => {
     return Object.values(groupedData).map((group, index) => {
@@ -104,8 +104,8 @@ const Cart = () => {
     },
     {
       title: "Aantal",
-      dataIndex: "totalMoq",
-      key: "totalMoq",
+      dataIndex: "quantity",
+      key: "quantity",
       align: "center",
     },
     {
@@ -171,7 +171,7 @@ const Cart = () => {
   const handleConfirmOrderPlace = (cart) => {
     setIsLoading(true)
     const orderTypeCode = userInfo?.debtor?.defaultOrderType
-    const reference = orderReferentie
+    const reference = orderReferentie ?? ' '
     const orderText = ''
 
     const excludeCommentsOrderInstruction = `${selectedOrderTime}. ${userInfo?.firstName} ${userInfo?.lastName}`
@@ -182,7 +182,7 @@ const Cart = () => {
       return {
         productCode: product.uid,
         unitCode: product.unit,
-        quantity: Number(product.Aantal),
+        quantity: Number(product.quantity),
         addressCode: selectedAddress.uid
       }
     })
@@ -241,27 +241,26 @@ const Cart = () => {
       });
     }
 
-    console.log('payload :>> ', payload);
-    // dispatch(placeOrderAction({ payload }, successCallback, errorCallback))
+    dispatch(placeOrderAction({ payload }, successCallback, errorCallback))
   }
 
-  const preprocessData = (data) => {
-    return data.map((product) => {
-      let totalMoq = product.moq;
+  // const preprocessData = (data) => {
+  //   return data.map((product) => {
+  //     let totalMoq = product.moq;
 
-      if (product.children && product.children.length > 0) {
-        totalMoq += product.children.reduce((acc, child) => acc + child.moq, 0);
-      }
+  //     if (product.children && product.children.length > 0) {
+  //       totalMoq += product.children.reduce((acc, child) => acc + child.moq, 0);
+  //     }
 
-      return {
-        ean: product.ean,
-        uid: product.uid,
-        description: product.description,
-        unit: product.unit,
-        totalMoq: totalMoq,
-      };
-    });
-  };
+  //     return {
+  //       ean: product.ean,
+  //       uid: product.uid,
+  //       description: product.description,
+  //       unit: product.unit,
+  //       totalMoq: totalMoq,
+  //     };
+  //   });
+  // };
 
   useEffect(() => {
     dispatch(getAddressesAction());
@@ -284,7 +283,8 @@ const Cart = () => {
   }, [addresses, selectedAddress])
 
   useEffect(() => {
-    setProcessedData(preprocessData(dataSource))
+    // setProcessedData(preprocessData(dataSource))
+    setProcessedData(dataSource)
   }, [dataSource])
 
 
@@ -413,7 +413,7 @@ const Cart = () => {
                       <Button
                         className={styles.orderButton}
                         // teporarily disabling the button by adding 1 in condition,  will add logic in future
-                        disabled={(cartQuantity <= 0 || selectedAddress == null || addresses?.length === 0 || !(processedData.length > 0))}
+                        disabled={(cartQuantity <= 0 || selectedAddress == null || addresses?.length === 0 || !(processedData.length > 0) || isLoading)}
                         onClick={() => handleConfirmOrderPlace(cart)}>
                         {isLoading ? <Spin indicator={<LoadingOutlined spin className={styles.spin} />} /> : 'Bevestigen'}
                       </Button>
