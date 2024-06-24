@@ -241,7 +241,8 @@ const Cart = () => {
       });
     }
 
-    dispatch(placeOrderAction({ payload }, successCallback, errorCallback))
+    console.log('payload', payload)
+    // dispatch(placeOrderAction({ payload }, successCallback, errorCallback))
   }
 
   // const preprocessData = (data) => {
