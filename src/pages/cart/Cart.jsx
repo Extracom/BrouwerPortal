@@ -322,6 +322,7 @@ const Cart = () => {
                 className={styles.customTable}
                 columns={columns}
                 pagination={false}
+                size="small"
 
                 expandable={{
                   defaultExpandAllRows: true,

@@ -8,11 +8,15 @@
     }
 
     .pageTitle {
-        padding-inline: 20px;
         margin: 5px;
         color: gray;
         font-size: 12px;
+        font-weight: 500;
         display: none;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-align: center;
 
         &.active {
             display: block;

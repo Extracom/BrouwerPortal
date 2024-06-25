@@ -125,7 +125,7 @@ const Sidebar = () => {
                 width={225}
                 theme="light"
             >
-                {/* <h4 className={`${styles.pageTitle} ${userData?.userInfo?.isAgent ? styles.active : ''}`}>{`${userData?.userInfo?.debtor?.name} (${userData?.userInfo?.debtor?.uid})`}</h4> */}
+                <h4 className={`${styles.pageTitle} ${userData?.userInfo?.isAgent ? styles.active : ''}`}>{`${userData?.userInfo?.debtor?.name} (${userData?.userInfo?.debtor?.uid})`}</h4>
                 <Menu
                     mode="inline"
                     defaultSelectedKeys={['klanten']}

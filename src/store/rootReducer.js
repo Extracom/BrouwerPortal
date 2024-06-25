@@ -5,6 +5,7 @@ import { authReducer } from './reducers/authReducer'
 import { messageApiReducer } from './reducers/messageApiReducer'
 import { orderReducer } from './reducers/orderReducer'
 import { cartReducer } from './reducers/cartReducer'
+import { customerReducer } from './reducers/customerReducer'
 
 const persistConfig = {
     key: 'root',
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
     messageApi: messageApiReducer,
     cart: cartReducer,
     order: orderReducer,
+    customer: customerReducer,
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
