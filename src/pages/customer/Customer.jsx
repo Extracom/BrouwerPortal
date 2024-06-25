@@ -46,20 +46,6 @@ const Customer = () => {
             dataIndex: 'city',
             key: 'city',
             render: (_, row) => (<>{(!row.city || row.city === '') ? '-' : row.city}</>)
-        },
-        {
-            title: 'GBM licentie',
-            dataIndex: 'extra1',
-            key: 'extra1',
-            render: (_, row) => (<>{(!row.extra1 || row.extra1 === '') ? '-' : row.extra1}</>),
-            responsive: ['sm']
-        },
-        {
-            title: 'Precusoren licentie',
-            dataIndex: 'extra2',
-            key: 'extra2',
-            render: (_, row) => (<>{(!row.extra2 || row.extra2 === '') ? '-' : row.extra2}</>),
-            responsive: ['sm']
         }
     ]
 
