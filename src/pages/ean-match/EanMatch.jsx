@@ -60,6 +60,19 @@ const EanMatch = () => {
             }
         },
         {
+            title: 'Aantal',
+            dataIndex: 'quantity',
+            key: 'quantity',
+            align: 'center',
+            render: (data) => {
+                return (<>
+                    {
+                        isLoading ? <Skeleton active paragraph={false} /> : <>{data ?? '-'}</>
+                    }
+                </>)
+            }
+        },
+        {
             title: 'Omschrijving',
             dataIndex: 'description',
             key: 'omschrijving',
@@ -89,6 +102,7 @@ const EanMatch = () => {
             dataIndex: 'moq',
             key: 'afnamePer',
             align: 'center',
+            width: 100,
             render: (data) => {
                 return (<>
                     {
