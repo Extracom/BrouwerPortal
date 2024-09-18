@@ -42,7 +42,7 @@ const Login = () => {
         onSubmit: (values) => {
 
             let payload = {
-                email: values.username,
+                email: values.username.toLowerCase(),
                 password: values.password
             }
             setIsLoading(true)
